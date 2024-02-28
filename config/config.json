@@ -1,0 +1,65 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "leave-mgmt-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/leaveMgmt/LeaveMgmtWebPart.js",
+          "manifest": "./src/webparts/leaveMgmt/LeaveMgmtWebPart.manifest.json"
+        }
+      ]
+    },
+    "leave-mgmt-dashboard-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/leaveMgmtDashboard/LeaveMgmtDashboardWebPart.js",
+          "manifest": "./src/webparts/leaveMgmtDashboard/LeaveMgmtDashboardWebPart.manifest.json"
+        }
+      ]
+    },
+    "aboutus-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/aboutus/AboutusWebPart.js",
+          "manifest": "./src/webparts/aboutus/AboutusWebPart.manifest.json"
+        }
+      ]
+    },
+    "holiday-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/holiday/HolidayWebPart.js",
+          "manifest": "./src/webparts/holiday/HolidayWebPart.manifest.json"
+        }
+      ]
+    },
+    "permission-request-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/permissionRequest/PermissionRequestWebPart.js",
+          "manifest": "./src/webparts/permissionRequest/PermissionRequestWebPart.manifest.json"
+        }
+      ]
+    },
+    "permission-dashboard-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/permissionDashboard/PermissionDashboardWebPart.js",
+          "manifest": "./src/webparts/permissionDashboard/PermissionDashboardWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "LeaveMgmtWebPartStrings": "lib/webparts/leaveMgmt/loc/{locale}.js",
+    "LeaveMgmtDashboardWebPartStrings": "lib/webparts/leaveMgmtDashboard/loc/{locale}.js",
+    "AboutusWebPartStrings": "lib/webparts/aboutus/loc/{locale}.js",
+    "HolidayWebPartStrings": "lib/webparts/holiday/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
+    "PermissionRequestWebPartStrings": "lib/webparts/permissionRequest/loc/{locale}.js",
+    "PermissionDashboardWebPartStrings": "lib/webparts/permissionDashboard/loc/{locale}.js"
+  }
+}

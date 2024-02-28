@@ -1,0 +1,17 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "isCreatingSolution": false,
+    "environment": "spo",
+    "version": "1.18.2",
+    "libraryName": "leave-mgmt",
+    "libraryId": "23f81cf6-f9ad-4cce-9628-815f1ed9a3fd",
+    "packageManager": "npm",
+    "isDomainIsolated": false,
+    "componentType": "webpart",
+    "nodeVersion": "18.19.0",
+    "sdkVersions": {
+      "@microsoft/teams-js": "2.12.0",
+      "@microsoft/microsoft-graph-client": "3.0.2"
+    }
+  }
+}

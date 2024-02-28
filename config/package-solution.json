@@ -1,0 +1,87 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "leave-mgmt-client-side-solution",
+    "id": "23f81cf6-f9ad-4cce-9628-815f1ed9a3fd",
+    "version": "3.0.0.3",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": ""
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "leave-mgmt description"
+      },
+      "longDescription": {
+        "default": "leave-mgmt description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "leave-mgmt AboutusWebPart Feature",
+        "description": "The feature that activates AboutusWebPart from the leave-mgmt solution.",
+        "id": "7c3add12-7562-435d-b23a-7670af609df2",
+        "version": "3.0.0.3",
+        "componentIds": [
+          "7c3add12-7562-435d-b23a-7670af609df2"
+        ]
+      },
+      {
+        "title": "leave-mgmt HolidayWebPart Feature",
+        "description": "The feature that activates HolidayWebPart from the leave-mgmt solution.",
+        "id": "a3e66a66-0ff7-4ba3-aec2-144056ebad6c",
+        "version": "3.0.0.3",
+        "componentIds": [
+          "a3e66a66-0ff7-4ba3-aec2-144056ebad6c"
+        ]
+      },
+      {
+        "title": "leave-mgmt LeaveMgmtWebPart Feature",
+        "description": "The feature that activates LeaveMgmtWebPart from the leave-mgmt solution.",
+        "id": "7c2f80bb-b1eb-4872-a58e-aa44c468db7f",
+        "version": "3.0.0.3",
+        "componentIds": [
+          "7c2f80bb-b1eb-4872-a58e-aa44c468db7f"
+        ]
+      },
+      {
+        "title": "leave-mgmt LeaveMgmtDashboardWebPart Feature",
+        "description": "The feature that activates LeaveMgmtDashboardWebPart from the leave-mgmt solution.",
+        "id": "849fc01b-e6a9-4bee-96e0-a78db56e187a",
+        "version": "3.0.0.3",
+        "componentIds": [
+          "849fc01b-e6a9-4bee-96e0-a78db56e187a"
+        ]
+      },
+      {
+        "title": "leave-mgmt PermissionDashboardWebPart Feature",
+        "description": "The feature that activates PermissionDashboardWebPart from the leave-mgmt solution.",
+        "id": "1176bbad-d357-4b2d-96ec-9524a6f012a1",
+        "version": "3.0.0.3",
+        "componentIds": [
+          "1176bbad-d357-4b2d-96ec-9524a6f012a1"
+        ]
+      },
+      {
+        "title": "leave-mgmt PermissionRequestWebPart Feature",
+        "description": "The feature that activates PermissionRequestWebPart from the leave-mgmt solution.",
+        "id": "338332b6-9a90-4618-9fba-53e9ce815b6e",
+        "version": "3.0.0.3",
+        "componentIds": [
+          "338332b6-9a90-4618-9fba-53e9ce815b6e"
+        ]
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/leave-mgmt.sppkg"
+  }
+}
