@@ -277,7 +277,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
   }
   public GetUserlistitems() {
     var reactHandler = this;
-    NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Reason", "Days", "Requester", "EmployeeEmail", "Day", "LeaveType", "Status", "AppliedDate").filter(`Author/Id eq ${this.props.userId}`).expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
+    NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Reason", "Days", "Requester", "EmployeeEmail", "Day", "LeaveType", "Status", "AppliedDate", "CompOff").filter(`Author/Id eq ${this.props.userId}`).expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
 
       // await NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "StartDate", "EndDate", "Day", "Reason", "Days", "Requester", "EmployeeEmail", "LeaveType", "Status", "AppliedDate").filter(`Author/Id eq ${this.props.userId}`).expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
 
@@ -298,7 +298,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
   public GetAdminlistitems() {
     this.setState({ IsAdmin: true });
     var reactHandler = this;
-    NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Reason", "Days", "Requester", "EmployeeEmail", "Day", "LeaveType", "Status", "AppliedDate").expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
+    NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Reason", "Days", "Requester", "EmployeeEmail", "Day", "LeaveType", "Status", "AppliedDate", "CompOff").expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
 
       // await NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "StartDate", "EndDate", "Day", "Reason", "Days", "Requester", "EmployeeEmail", "LeaveType", "Status", "AppliedDate").filter(`Author/Id eq ${this.props.userId}`).expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
 
@@ -460,7 +460,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
       console.log(userDetails.Id);
       let userID = userDetails.Id;
 
-      await NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Day", "Reason", "Days", "Requester", "EmployeeEmail", "LeaveType", "Status", "AppliedDate").filter(`Author/Id eq ${this.props.userId}`).expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
+      await NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Day", "Reason", "Days", "Requester", "EmployeeEmail", "LeaveType", "Status", "AppliedDate", "CompOff").filter(`Author/Id eq ${this.props.userId}`).expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
         //  await NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "StartDate", "EndDate", "Day", "Reason", "Days", "Requester", "EmployeeEmail", "LeaveType", "Status", "AppliedDate").filter("EmployeeEmail eq '" + this.state.Empemail + "'").expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
         .then((items) => {
           if (items.length != 0) {
@@ -479,7 +479,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
     } else {
       //if (UserType =="Admin") {
       console.log("Admin :" + UserType);
-      await NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Reason", "Days", "Requester", "EmployeeEmail", "Day", "LeaveType", "Status", "AppliedDate").expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
+      await NewWeb.lists.getByTitle("LeaveRequest").items.select("Id", "*", "StartDate", "EndDate", "Reason", "Days", "Requester", "EmployeeEmail", "Day", "LeaveType", "Status", "AppliedDate", "CompOff").expand('AttachmentFiles').orderBy("Created", false).top(5000).get()
 
         .then((items) => {
           if (items.length != 0) {
@@ -1258,6 +1258,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
           <td className="reason-td">{item.Reason}</td>
 
           <td>{item.Day}</td>
+          <td>{item.CompOff}</td>
 
           {item.Status == "Pending" ?
             <td className="status pending text-center">{item.Status}</td>
@@ -1465,6 +1466,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
                         <th></th>
                         <th className="reason-select-input"></th>
                         <th></th>
+                        <th></th>
                         <th className="text-center"></th>
                         <th></th>
                         <th></th>
@@ -1484,6 +1486,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
                         <th>EndDate</th>
                         <th className="reason-td">Reason</th>
                         <th>Day</th>
+                        <th>Compensation Date</th>
                         <th className="text-center"> Status  </th>
                         <th>Attachments</th>
                         <th>Action</th>

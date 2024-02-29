@@ -935,7 +935,11 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
 
       var start = moment(startdate, "YYYY-MM-DD");
       var end = moment(enddate, "YYYY-MM-DD");
-      var CompOffDates = this.state.dates.join(",")
+      var CompOfff: any = []
+      this.state.dates.map((item) => {
+        CompOfff.push(moment(item, "DD/MM/YYYY").format("DD-MM-YYYY"))
+      })
+      var CompOffDates = CompOfff.join(",")
 
       //Difference in number of days
       var Days = moment.duration(end.diff(start)).asDays();
