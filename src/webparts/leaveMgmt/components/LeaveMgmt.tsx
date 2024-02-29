@@ -1642,8 +1642,8 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     $('#txt-Enddate').attr('min', Date);
     if (moment(Date, "YYYY-MM-DD").isAfter(moment(EndDate, 'YYYY-MM-DD'), 'day')) {
       $('#txt-Enddate').val("")
+      this.setState({ dates: [] })
     }
-    this.setState({ dates: [] })
     if (Date == "") {
       this.setState({
         DatePickerDisable: true
