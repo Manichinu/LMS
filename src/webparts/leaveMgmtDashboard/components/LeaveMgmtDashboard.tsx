@@ -1017,6 +1017,9 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
           icon: "warning",
           buttons: ["Cancel specific leave date", "Cancel this leave"],
           dangerMode: true,
+          closeOnClickOutside: false,
+          showCloseButton: true,
+          showCancelButton: true
         } as any).then((willdelete) => {
           if (willdelete) {
 
@@ -1288,13 +1291,13 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
 
             {(item.State !== "Cancel" || item.State !== "Cancelled") &&
               <>
-                {((item.Days <= 1) && handler.state.Empemail == item.EmployeeEmail && item.Status != "Cancelled" && moment(item.EndDate, "YYYY-MM-DD").isAfter(moment(), 'day')) &&
+                {((item.Days <= 1) && handler.state.Empemail == item.EmployeeEmail && item.Status != "Cancelled" && item.Status != "Rejected" && moment(item.EndDate, "YYYY-MM-DD").isAfter(moment(), 'day')) &&
 
 
                   <p onClick={() => handler.Cancel_Request_(item.Id, item.Days, item.StartDate, item.EndDate, item.LeaveType, item.Status, item)}><img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/cancel.svg" alt="image" /></p>
                 }
 
-                {((item.Days > 1) && handler.state.Empemail == item.EmployeeEmail && item.Status != "Cancelled" && moment(item.EndDate, "YYYY-MM-DD").isAfter(moment(), 'day')) &&
+                {((item.Days > 1) && handler.state.Empemail == item.EmployeeEmail && item.Status != "Cancelled" && item.Status != "Rejected" && moment(item.EndDate, "YYYY-MM-DD").isAfter(moment(), 'day')) &&
 
 
                   <p onClick={() => handler.Cancel_Request_or_change_LeaveDate(item.Id, item.Days, item.StartDate, item.EndDate, item.LeaveType, item.Status, item)}> <img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/cancel.svg" alt="image" /></p>
@@ -1310,7 +1313,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
     return (
       <div className={styles.leaveMgmtDashboard} >
         <header>
-          <div className="container-new">
+          <div className="clearfix container-new">
             <div className="logo">
               <img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/logo_small.png" alt="image" />
             </div>

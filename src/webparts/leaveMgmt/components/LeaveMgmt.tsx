@@ -40,7 +40,7 @@ var PreviousPermissionRequestDates = [];
 var AllFileAttachmentURL = "";
 var finalurl = "";
 var Approver_Manager_Details: any = []
-var format = 'YYYY-MM-DD';
+var format = 'DD/MM/YYYY';
 var RestrictedHoliday: any;
 
 export interface ILeaveMgmtState {
@@ -263,7 +263,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     //var filterquery = `EmployeeEmail eq '${this.state.Email}' and '${permissionDate}' ge startdate and '${permissionDate}' le enddate`
     //// and enddate ge '${moment().format("DD-MM-YYYY")}'
     var filterquery = `EmployeeEmail eq '${email}' and Status ne 'Rejected'`
-    NewWeb.lists.getByTitle("LeaveRequest").items.select("StartDate", "EndDate", "EmployeeEmail").filter(filterquery).orderBy("Created", false).get().then((response: any): void => {
+    NewWeb.lists.getByTitle("LeaveRequest").items.select("StartDate", "EndDate", "EmployeeEmail", "Status").filter(filterquery).orderBy("Created", false).get().then((response: any): void => {
       if (response.length != 0) {
         let i;
         for (i = 0; i < response.length;) {
@@ -277,7 +277,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
           console.log(tempFromDate);
           var tempToDate = moment(To).format("YYYY-MM-DD");
           console.log(tempToDate);
-          var dateList = this.getDaysBetweenDates(moment(tempFromDate), moment(tempToDate));
+          var dateList = this.getDaysBetweenDates(moment(tempFromDate), moment(tempToDate), response[i].Status);
           console.log("dateList LeaveRequest: " + dateList);
           i++;
         }
@@ -291,7 +291,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     var filterquery = `EmployeeEmail eq '${email}' and Status ne 'Rejected'`// and timefromwhen ge '${moment().format("DD-MM-YYYY")}'`
     debugger;
     //  var filterquery = `Author/EmployeeEmail eq '${email}'and timefromwhen ge '${moment().format("DD-MM-YYYY")}'`
-    NewWeb.lists.getByTitle("EmployeePermission").items.select("timefromwhen", "EmployeeEmail").filter(filterquery).orderBy("Created", false).get().then((response: any): void => {
+    NewWeb.lists.getByTitle("EmployeePermission").items.select("timefromwhen", "EmployeeEmail", "Status").filter(filterquery).orderBy("Created", false).get().then((response: any): void => {
       if (response.length != 0) {
         let i;
         for (i = 0; i < response.length;) {
@@ -302,7 +302,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
           var tempToDate = moment(From, "DD-MM-YYYYTHH:mm").format("DD-MM-YYYY");
 
 
-          var dateList = this.getDaysBetweenDates(moment(tempFromDate), moment(tempToDate));
+          var dateList = this.getDaysBetweenDates(moment(tempFromDate), moment(tempToDate), response[i].Status);
           console.log("dateList PermissionRequest: " + dateList);
           i++;
         }
@@ -715,7 +715,8 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     $('#txt-Enddate').val(today);
     $('#txt-Startdate').attr('min', today);
     $('#txt-Enddate').attr('min', today);
-    this.setState({ EndDate: $("#txt-Enddate").val() })
+    var CompensateMinDate = moment($("#txt-Enddate").val(), "YYYY-MM-DD").add(1, 'days').format("YYYY-MM-DD")
+    this.setState({ EndDate: CompensateMinDate })
 
     const url: any = new URL(window.location.href);
     const LeaveType = url.searchParams.get("type");
@@ -1248,14 +1249,22 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
   }
 
   public isInArray(PreviousLeaveRequestDates: any, value: string) {
-    return (PreviousLeaveRequestDates.find((item: any) => { return item == value }) || []).length > 0;
+    var DateStatus = false;
+    // return (PreviousLeaveRequestDates.find((item: any) => { return item.Date == value && item.Status == "Cancelled" }) || []).length > 0;
+    PreviousLeaveRequestDates.map((item: any) => {
+      if (item.Date == value && (item.Status == "Approved" || item.Status == "Pending")) {
+        DateStatus = true;
+        return;
+      }
+    })
+    return DateStatus
   }
 
-  public getDaysBetweenDates(startDate: moment.Moment, endDate: moment.Moment) {
+  public getDaysBetweenDates(startDate: moment.Moment, endDate: moment.Moment, Status: any) {
     var now = startDate.clone();
     while (now.isSameOrBefore(endDate)) {
 
-      PreviousLeaveRequestDates.push(now.format('YYYY-MM-DD'));
+      PreviousLeaveRequestDates.push({ Date: now.format('YYYY-MM-DD'), Status: Status });
 
       now.add(1, 'days').format('DD/MM/YYYY');
     }
@@ -1600,6 +1609,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
   }
   public getEndDate() {
     var Date = $("#txt-Enddate").val()
+    var CompensateMinDate = moment(Date, "YYYY-MM-DD").add(1, 'days').format("YYYY-MM-DD")
     this.setState({ dates: [] })
     if (Date == "") {
       this.setState({
@@ -1608,8 +1618,25 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     } else {
       this.setState({
         DatePickerDisable: false,
-        EndDate: Date,
+        EndDate: CompensateMinDate,
       })
+    }
+  }
+  public getStartDate() {
+    var Date: any = $("#txt-Startdate").val()
+    $('#txt-Enddate').attr('min', Date);
+    $('#txt-Enddate').val("")
+    this.setState({ dates: [] })
+    if (Date == "") {
+      this.setState({
+        DatePickerDisable: true
+      })
+      $("#txt-Enddate").prop("disabled", true);
+    } else {
+      this.setState({
+        DatePickerDisable: false,
+      })
+      $("#txt-Enddate").prop("disabled", false);
     }
   }
 
@@ -1756,7 +1783,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
 
                       </div>
                       {/*<input type="text" id="txt-Startdate"  className="form-control" placeholder="dd-mm-yyyy" autoComplete="off"/>*/}
-                      <input type="date" className="form-control" id="txt-Startdate" autoComplete="off" />
+                      <input type="date" className="form-control" id="txt-Startdate" autoComplete="off" onChange={() => this.getStartDate()} />
                       <span className="floating-label ">Start Date</span>
 
                     </div>
