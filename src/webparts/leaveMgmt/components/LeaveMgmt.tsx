@@ -1839,7 +1839,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
                   <div className="col-md-12">
                     <div className="image-upload">
 
-                      <ReactFileReader id="leave-file-upload" className="leave-file-upload" multipleFiles={true} fileTypes={[".csv", ".xlsx", ".Docx", ".pdf"]} base64={true}
+                      <ReactFileReader id="leave-file-upload" className="leave-file-upload" multipleFiles={false} fileTypes={[".csv", ".xlsx", ".Docx", ".pdf", ".png", ".jpeg", ".jpg", ".svg"]} base64={true}
                         handleFiles={(f: any) => this.handleFiles(f)}  >
                         <label htmlFor="leave-file-upload" className="img-upload">
                           <img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/upload.png" className="upload_file" />

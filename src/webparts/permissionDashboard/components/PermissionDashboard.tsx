@@ -20,7 +20,7 @@ import * as $ from 'jquery';
 import * as moment from 'moment';
 let ItemId;
 var CurrentUSERNAME = "";
-var Usertype="";
+var Usertype = "";
 const NewWeb = Web('https://tmxin.sharepoint.com/sites/ER/');
 export default class PermissionDashboard extends React.Component<IPermissionDashboardProps, IPermissionDashboardState> {
 
@@ -73,17 +73,56 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
       Empemail: ""
     };
   }
+  // public async isOwnerGroupMember() {
+  //   var reacthandler = this;
+  //   let userDetails = await this.spLoggedInUser(this.props.context);
+
+  //   let userID = userDetails.Id;
+  //   console.log(userID);
+  //   $.ajax({
+
+  //     // url: `${reacthandler.props.siteurl}/_api/web/sitegroups/getByName('LMS Admin')/Users?$filter=Id eq  + ${this.props.userId}`,
+  //     url: `${reacthandler.props.siteurl}/_api/web/sitegroups/getByName('LMS Admin')/Users?$filter=Id eq ${userID}`,
+
+  //     type: "GET",
+
+  //     headers: { 'Accept': 'application/json; odata=verbose;' },
+
+  //     success: function (resultData) {
+
+  //       if (resultData.d.results.length == 0) {
+  //         console.log("User not in group : LMS Admin Owners");
+  //         setTimeout(() => {
+  //           reacthandler.GetUserlistitems();
+  //         }, 1000);
+
+  //       } else {
+  //         console.log("User in group : LMS Admin Owners");
+  //         setTimeout(() => {
+  //           reacthandler.GetAdminlistitems();
+  //         }, 1000);
+  //       }
+
+  //     },
+
+  //     error: function (jqXHR, textStatus, errorThrown) {
+  //       console.log("Error while checking user in Owner's group");
+  //     }
+
+  //   });
+
+  // }
   public async isOwnerGroupMember() {
     var reacthandler = this;
     let userDetails = await this.spLoggedInUser(this.props.context);
-    
+
     let userID = userDetails.Id;
     console.log(userID);
     $.ajax({
-   
-     // url: `${reacthandler.props.siteurl}/_api/web/sitegroups/getByName('LMS Admin')/Users?$filter=Id eq  + ${this.props.userId}`,
-      url: `${reacthandler.props.siteurl}/_api/web/sitegroups/getByName('LMS Admin')/Users?$filter=Id eq ${userID}`,
-  
+
+      // url: `${reacthandler.props.siteurl}/_api/web/sitegroups/getByName('LMS Admin')/Users?$filter=Id eq  + ${this.props.userId}`,
+      url: `https://tmxin.sharepoint.com/sites/lms/_api/web/sitegroups/getByName('LMS Admin')/Users?$filter=Id eq ${userID}`,
+
       type: "GET",
 
       headers: { 'Accept': 'application/json; odata=verbose;' },
@@ -95,12 +134,17 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
           setTimeout(() => {
             reacthandler.GetUserlistitems();
           }, 1000);
-         
+
+
         } else {
+
           console.log("User in group : LMS Admin Owners");
+
           setTimeout(() => {
+
             reacthandler.GetAdminlistitems();
           }, 1000);
+
         }
 
       },
@@ -155,88 +199,90 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
 
   public GetUserlistitems() {
     var reactHandler = this;
-   
-    NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").filter (`Author/Id eq ${this.props.userId}`).orderBy("Created", false).top(5000).get()
-    //NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").filter("EmployeeEmail eq '" + this.state.Empemail + "'").orderBy("Created", false).top(5000).get()
-     
-        .then((items) => {
-          if (items.length != 0) {
-  
-            reactHandler.setState({
-              DatatableItems: items
-            });
-            this.loadTable();
-  
-          }
-          else {
-            this.loadTable();
-          }
-        });
-  
+
+    NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester", "EmployeeEmail", "Reason", "Status").filter(`Author/Id eq ${this.props.userId}`).orderBy("Created", false).top(5000).get()
+      //NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").filter("EmployeeEmail eq '" + this.state.Empemail + "'").orderBy("Created", false).top(5000).get()
+
+      .then((items) => {
+        if (items.length != 0) {
+
+          reactHandler.setState({
+            DatatableItems: items
+          });
+          this.loadTable();
+          $("#no_data").hide()
+
+        }
+        else {
+          this.loadTable();
+          $("#no_data").show()
+        }
+      });
+
 
   }
   public GetAdminlistitems() {
     this.setState({ IsAdmin: true });
     var reactHandler = this;
-   
-    NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").orderBy("Created", false).top(5000).get()
-    //NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").filter("EmployeeEmail eq '" + this.state.Empemail + "'").orderBy("Created", false).top(5000).get()
-     
-        .then((items) => {
-          if (items.length != 0) {
-  
-            reactHandler.setState({
-              DatatableItems: items
-            });
-            this.loadTable();
-  
-          }
-          else {
-            this.loadTable();
-          }
-        });
-  
+
+    NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester", "EmployeeEmail", "Reason", "Status").orderBy("Created", false).top(5000).get()
+      //NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").filter("EmployeeEmail eq '" + this.state.Empemail + "'").orderBy("Created", false).top(5000).get()
+
+      .then((items) => {
+        if (items.length != 0) {
+
+          reactHandler.setState({
+            DatatableItems: items
+          });
+          this.loadTable();
+
+        }
+        else {
+          this.loadTable();
+        }
+      });
+
 
   }
-  public async Checkusertype(UserType: string){
+  public async Checkusertype(UserType: string) {
     var reactHandler = this;
     if (UserType == "User") {
 
-      await NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").filter("EmployeeEmail eq '" + this.state.Empemail + "'").orderBy("Created", false).top(5000).get()
-     
+      await NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester", "EmployeeEmail", "Reason", "Status").filter("EmployeeEmail eq '" + this.state.Empemail + "'").orderBy("Created", false).top(5000).get()
+
         .then((items) => {
           if (items.length != 0) {
-  
+
             reactHandler.setState({
               DatatableItems: items
             });
             this.loadTable();
-  
+
           }
           else {
             this.loadTable();
           }
         });
-  
+
     } else {
       //if (UserType =="Admin") {
-        await NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester","EmployeeEmail", "Reason", "Status").orderBy("Created", false).top(5000).get()
-     
-            .then((items) => {
+      await NewWeb.lists.getByTitle("EmployeePermission").items.select("Id", "PermissionHour", "TimeUpto", "PermissionOn", "timefromwhen", "Requester", "EmployeeEmail", "Reason", "Status").orderBy("Created", false).top(5000).get()
+
+        .then((items) => {
           if (items.length != 0) {
-  
+
             reactHandler.setState({
-  
+
               DatatableItems: items
             });
             this.loadTable();
-  
+
           }
           else {
             this.loadTable();
           }
         });
-  
+
     }
   }
   public logout() {
@@ -274,13 +320,13 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
     this.setState({ CurrentUserId: userID });
     await this.isOwnerGroupMember();
     //await this.GetListitems();
-   // console.log("User Type:"+Usertype);
-   // this.Checkusertype(Usertype);
+    // console.log("User Type:"+Usertype);
+    // this.Checkusertype(Usertype);
 
 
-  //  this.loadTable();
- 
-   
+    //  this.loadTable();
+
+
   }
   public GetPermissionDetails() {
     var reactHandler = this;
@@ -323,25 +369,25 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
   }
   public async GetListitems() {
     var reactHandler = this;
-    var UserType="";
+    var UserType = "";
     let groups = await NewWeb.currentUser.groups();
     for (var i = 0; i < groups.length; i++) {
       if (groups[i].Title == 'LMS Admin') {
-        UserType="Admin";
-       // this.setState({ IsAdmin: true });
-       
+        UserType = "Admin";
+        // this.setState({ IsAdmin: true });
+
         console.log(UserType);
-        Usertype=UserType;
+        Usertype = UserType;
         return Usertype;
 
-      }else {
+      } else {
 
         UserType = "User";
-        Usertype="User"
+        Usertype = "User"
 
       }
     }
-    
+
     return Usertype;
     {/*if (UserType =="User") {
 
