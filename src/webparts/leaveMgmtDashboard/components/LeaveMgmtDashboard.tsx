@@ -1258,7 +1258,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
           <td className="reason-td">{item.Reason}</td>
 
           <td>{item.Day}</td>
-          <td>{item.CompOff}</td>
+          <td>{item.CompOff === "" || item.CompOff === null || item.CompOff === undefined ? "-" : item.CompOff}</td>
 
           {item.Status == "Pending" ?
             <td className="status pending text-center">{item.Status}</td>

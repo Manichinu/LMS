@@ -16,6 +16,7 @@ import "@pnp/sp/lists";
 import "@pnp/sp/items";
 import "@pnp/sp/site-users/web";
 import * as $ from 'jquery';
+import swal from "sweetalert";
 
 import * as moment from 'moment';
 let ItemId;
@@ -509,6 +510,33 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
     //  }, 500);
 
   }
+  public Cancel_Request_(itemidno: number) {
+
+    swal({
+      title: ` "Are you sure?"`,
+      text: "Would you like to cancel the permission?",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true,
+    } as any).then((willdelete) => {
+      if (willdelete) {
+        NewWeb.lists.getByTitle("EmployeePermission").items.getById(itemidno).update({
+          Status: "Cancelled"
+        }).then(() => {
+          swal({
+            text: "Permission cancel successfully!",
+            icon: "success",
+          }).then(() => {
+            location.reload()
+          });
+
+        })
+
+
+
+      }
+    })
+  }
   public render(): React.ReactElement<IPermissionDashboardProps> {
     let count = 0;
     let handler = this;
@@ -539,8 +567,23 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
               item.Status == "Rejected" ?
                 <td className="status rejected text-center">{item.Status}</td>
                 :
-                <></>
+                (item.Status == "Cancelled" || item.Status == "Cancel") ?
+                  <td className="status rejected text-center">{item.Status}</td>
+                  :
+                  <></>
           }
+          <td>
+            {(item.State !== "Cancel" || item.State !== "Cancelled") &&
+              <>
+                {(item.Status != "Cancelled" && item.Status != "Rejected" && moment(item.timefromwhen, "DD-MM-YYYY hh:mm A").isSameOrAfter(moment(), 'day')) &&
+
+
+                  <p onClick={() => handler.Cancel_Request_(item.Id)}><img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/cancel.svg" alt="image" /></p>
+                }
+
+              </>
+            }
+          </td>
           {/* <td>{moment(item.TimeUpto, "YYYY-MM-DDTHH:mm").format('DD-MM-YYYY hh:mm A')}</td>   
           <td>{moment(item.timefromwhen,"YYYY-MM-DDTHH:mm").format('DD-MM-YYYY hh:mm A')}</td>
           <td><a href="#" onClick={() => handler.View(item.Id)}>View</a></td>*/}
@@ -614,6 +657,7 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
                         <th></th>
                         <th className="reason-select-input"></th>
                         <th className="text-center"> Status  </th>
+                        <th></th>
                       </tr>
                     </thead>
                     <thead>
@@ -630,6 +674,7 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
                         <th>Permission Hours</th>
                         <th className="reason-td">Reason</th>
                         <th className="text-center"> Status  </th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>

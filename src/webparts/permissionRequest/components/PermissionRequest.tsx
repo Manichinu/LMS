@@ -23,6 +23,7 @@ let datesCollection: string[] = [];
 var PreviousLeaveRequestDates: any[] = [];
 var PreviousPermissionRequestDates = [];
 let IsValidReqularRequest = false;
+var Approver_Manager_Details: any = []
 
 
 export interface IPermissionRequestState {
@@ -374,7 +375,7 @@ export default class PermissionRequest extends React.Component<IPermissionReques
           CurrentUserProfilePic: `${reacthandler.props.siteurl}/_layouts/15/userphoto.aspx?size=l&username=${email}`
 
         });
-
+        reacthandler.Get_CorrespondingApprover(email)
         reacthandler.GetPreviousLeaveRequestDates(email);
         reacthandler.GetPreviousPermissionRequestDates(email);
 
@@ -420,7 +421,8 @@ export default class PermissionRequest extends React.Component<IPermissionReques
           PermissionOn: today,
           Requester: this.state.CurrentUserName,
           EmployeeEmail: this.state.Email,
-
+          Approver: Approver_Manager_Details[0].ApproverName,
+          ApproverEmail: Approver_Manager_Details[0].ApproverEmail,
 
         })
 
@@ -455,6 +457,23 @@ export default class PermissionRequest extends React.Component<IPermissionReques
         icon: "error"
       });
     }
+  }
+  public Get_CorrespondingApprover(EmployeeEmailid: any) {
+    var currentYear = new Date().getFullYear()
+    let nextYear = currentYear + 1
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("ID", "*", "CasualLeaveBalance", "EmployeeEmail", "Manager/Title", "Manager/EMail").expand("Manager").filter(`EmployeeEmail eq '${EmployeeEmailid}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+      .then((result) => {
+        if (result.length != 0) {
+          console.log(result);
+
+          Approver_Manager_Details.push({
+            ApproverName: result[0].Manager.Title,
+            ApproverEmail: result[0].Manager.EMail
+          })
+
+          console.log(Approver_Manager_Details)
+        }
+      })
   }
   public render(): React.ReactElement<IPermissionRequestProps> {
 

@@ -1565,6 +1565,9 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
         });
 
         console.log(this.state.AttachmentCopies);
+        if (this.state.AttachmentCopies.length == 0) {
+          $("#files").show()
+        }
 
 
         swal({
@@ -1583,6 +1586,8 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     var filelist = f.fileList;
 
     var fileInfos: IAttachmentFileInfo[] = [];
+    var FileLength = filelist.length;
+
 
     // loop through files
     for (var i = 0; i < filelist.length; i++) {
@@ -1599,7 +1604,11 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     this.setState({
       AttachmentCopies: fileInfos
     });
-
+    if (FileLength == 0) {
+      $("#files").show()
+    } else {
+      $("#files").hide()
+    }
 
   }
   public handleDateChange(selectedDates: any) {
@@ -1628,14 +1637,19 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
   }
   public getStartDate() {
     var Date: any = $("#txt-Startdate").val()
+    var EndDate = $("#txt-Enddate").val()
+
     $('#txt-Enddate').attr('min', Date);
-    $('#txt-Enddate').val("")
+    if (moment(Date, "YYYY-MM-DD").isAfter(moment(EndDate, 'YYYY-MM-DD'), 'day')) {
+      $('#txt-Enddate').val("")
+    }
     this.setState({ dates: [] })
     if (Date == "") {
       this.setState({
         DatePickerDisable: true
       })
       $("#txt-Enddate").prop("disabled", true);
+      $('#txt-Enddate').val("")
     } else {
       this.setState({
         DatePickerDisable: false,
@@ -1845,7 +1859,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
 
                       <ReactFileReader id="leave-file-upload" className="leave-file-upload" multipleFiles={false} fileTypes={[".csv", ".xlsx", ".Docx", ".pdf", ".png", ".jpeg", ".jpg", ".svg"]} base64={true}
                         handleFiles={(f: any) => this.handleFiles(f)}  >
-                        <label htmlFor="leave-file-upload" className="img-upload">
+                        <label htmlFor="leave-file-upload" className="img-upload" id='files'>
                           <img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/upload.png" className="upload_file" />
                           <h5>Choose an file. </h5>
 
