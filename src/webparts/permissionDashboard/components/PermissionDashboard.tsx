@@ -524,7 +524,7 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
           Status: "Cancelled"
         }).then(() => {
           swal({
-            text: "Permission cancel successfully!",
+            text: "Permission cancelled successfully!",
             icon: "success",
           }).then(() => {
             location.reload()
