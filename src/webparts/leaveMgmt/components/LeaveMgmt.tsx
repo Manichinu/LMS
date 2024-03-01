@@ -180,7 +180,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "CasualLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "CasualLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -362,7 +362,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "SickLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "SickLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -394,7 +394,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "EarnedLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "EarnedLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -425,7 +425,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "MaternityLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "MaternityLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -456,7 +456,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "OtherLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "OtherLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -488,7 +488,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "PaternityLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "PaternityLeaveBalance", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -519,7 +519,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "CasualLeaveBalance", "CasualLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "CasualLeaveBalance", "CasualLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -549,7 +549,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "PaternityLeaveBalance", "PaternityLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "PaternityLeaveBalance", "PaternityLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -579,7 +579,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "MaternityLeaveBalance", "MaternityLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "MaternityLeaveBalance", "MaternityLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -625,7 +625,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "EarnedLeaveBalance", "EarnedLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "EarnedLeaveBalance", "EarnedLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -655,7 +655,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "SickLeaveBalance", "SickLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "SickLeaveBalance", "SickLeave", "EmployeeEmail").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -839,7 +839,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
   public Get_CorrespondingApprover(EmployeeEmailid: any) {
     var currentYear = new Date().getFullYear()
     let nextYear = currentYear + 1
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("ID", "*", "CasualLeaveBalance", "EmployeeEmail", "Manager/Title", "Manager/EMail").expand("Manager").filter(`EmployeeEmail eq '${EmployeeEmailid}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("ID", "*", "CasualLeaveBalance", "EmployeeEmail", "Manager/Title", "Manager/EMail").expand("Manager").filter(`EmployeeEmail eq '${EmployeeEmailid}'`).get()
       .then((result) => {
         if (result.length != 0) {
           console.log(result);

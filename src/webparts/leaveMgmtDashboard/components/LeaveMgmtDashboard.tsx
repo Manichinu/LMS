@@ -688,7 +688,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
     url.searchParams.get("ItemID");
     ItemId = url.searchParams.get("ItemID");
 
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "CasualLeave", "CasualLeaveBalance", "EmployeeEmail", "CasualLeaveUsed", "SickLeave", "SickLeaveUsed", "SickLeaveBalance", "OtherLeaveBalance", "OtherLeave", "OtherLeaveUsed", "EarnedLeaveBalance", "EarnedLeave", "EarnedLeaveUsed", "PaternityLeaveUsed", "PaternityLeave", "PaternityLeaveBalance", "MaternityLeave", "MaternityLeaveBalance", "MaternityLeaveUsed", "StartDate", "EndDate").filter(`EmployeeEmail eq '${email}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "CasualLeave", "CasualLeaveBalance", "EmployeeEmail", "CasualLeaveUsed", "SickLeave", "SickLeaveUsed", "SickLeaveBalance", "OtherLeaveBalance", "OtherLeave", "OtherLeaveUsed", "EarnedLeaveBalance", "EarnedLeave", "EarnedLeaveUsed", "PaternityLeaveUsed", "PaternityLeave", "PaternityLeaveBalance", "MaternityLeave", "MaternityLeaveBalance", "MaternityLeaveUsed", "StartDate", "EndDate").filter(`EmployeeEmail eq '${email}'`).get()
 
       .then((items) => {
 
@@ -841,7 +841,7 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
 
     let currentYear = new Date().getFullYear()
     let nextYear = currentYear + 1
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "EmployeeEmail").filter(`EmployeeEmail eq '${this.state.Empemail}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("Id", "*", "EmployeeEmail").filter(`EmployeeEmail eq '${this.state.Empemail}'`).get()
       .then((results) => {
         if (results.length != 0) {
 

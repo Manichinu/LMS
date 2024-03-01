@@ -461,7 +461,7 @@ export default class PermissionRequest extends React.Component<IPermissionReques
   public Get_CorrespondingApprover(EmployeeEmailid: any) {
     var currentYear = new Date().getFullYear()
     let nextYear = currentYear + 1
-    NewWeb.lists.getByTitle("BalanceCollection").items.select("ID", "*", "CasualLeaveBalance", "EmployeeEmail", "Manager/Title", "Manager/EMail").expand("Manager").filter(`EmployeeEmail eq '${EmployeeEmailid}' and StartDate eq '01/04/${currentYear}' and EndDate eq '31/03/${nextYear}'`).get()
+    NewWeb.lists.getByTitle("BalanceCollection").items.select("ID", "*", "CasualLeaveBalance", "EmployeeEmail", "Manager/Title", "Manager/EMail").expand("Manager").filter(`EmployeeEmail eq '${EmployeeEmailid}'`).get()
       .then((result) => {
         if (result.length != 0) {
           console.log(result);
