@@ -1724,7 +1724,7 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
           <div className="dashboard-wrap">
 
             <div className="form-header">
-              <a href="https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView"><img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/back.svg" alt="image" /></a><span>Leave Request</span>
+              <a href="https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView"><img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/back.svg" alt="image" /></a><span> Leave Request</span>
             </div>
 
             <div className="form-body">

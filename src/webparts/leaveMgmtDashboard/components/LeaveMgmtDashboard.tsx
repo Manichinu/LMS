@@ -1012,108 +1012,152 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
       dangerMode: true,
     } as any).then((willdelete) => {
       if (willdelete) {
-        Swal.fire({
-          icon: "warning",
-          showDenyButton: true,
-          showCancelButton: true,
-          confirmButtonText: "Cancel specific leave date",
-          denyButtonText: `Cancel this leave`,
-          cancelButtonText: 'Close',
-          customClass: {
-            container: 'cancel-popup',
-          },
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "<p>Select Date</p>",
-              html: "<input type='date' id='cancelation_date' />",
-              confirmButtonText: "Submit",
-              customClass: {
-                container: 'cancel-date',
-              },
-              showCloseButton: true,
-              allowOutsideClick: true,
-              preConfirm: () => {
-                var selectedDate = $("#cancelation_date").val();
-                if (selectedDate == "") {
-                  Swal.showValidationMessage("Please select a date");
-                }
-                return selectedDate;
-              },
-            }).then((result) => {
-              if (result.isConfirmed) {
-                var CurrentDate = moment().format("YYYY-MM-DD")
-                var SelectedDate = $("#cancelation_date").val()
-                if (SelectedDate != "") {
-                  if (CurrentDate != SelectedDate) {
-                    this.updateLeaveDates(SelectedDate)
-                  } else {
-                    swal({
-                      text: "Don't select the current date",
-                      icon: "error"
-                    });
+        if (LeaveStatus != "Pending") {
+          Swal.fire({
+            icon: "warning",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Cancel specific leave date",
+            denyButtonText: `Cancel this leave`,
+            cancelButtonText: 'Close',
+            customClass: {
+              container: 'cancel-popup',
+            },
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "<p>Select Date</p>",
+                html: "<input type='date' id='cancelation_date' />",
+                confirmButtonText: "Submit",
+                customClass: {
+                  container: 'cancel-date',
+                },
+                showCloseButton: true,
+                allowOutsideClick: true,
+                preConfirm: () => {
+                  var selectedDate = $("#cancelation_date").val();
+                  if (selectedDate == "") {
+                    Swal.showValidationMessage("Please select a date");
+                  }
+                  return selectedDate;
+                },
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  var CurrentDate = moment().format("YYYY-MM-DD")
+                  var SelectedDate = $("#cancelation_date").val()
+                  if (SelectedDate != "") {
+                    if (CurrentDate != SelectedDate) {
+                      this.updateLeaveDates(SelectedDate)
+                    } else {
+                      swal({
+                        text: "Don't select the current date",
+                        icon: "error"
+                      });
+                    }
                   }
                 }
+              });
+
+
+
+              //this.Change_leave_Date_or_Cancel_Leave(totalDays, LeaveType)
+              // Parse the start and end dates
+              updateDateIdNo = itemidno;
+              TotalDaysLeaveApplied = totalDays;
+              LeaveTypee = LeaveType;
+              LeaveStatuss = LeaveStatus;
+              SpecificDate = items
+              console.log(SpecificDate)
+              var startDate = new Date(StartDate);
+              var endDate = new Date(EndDate);
+              $('#cancelation_date').attr('min', StartDate);
+              $('#cancelation_date').attr('max', EndDate);
+
+              // Array to store the dates in between
+              datesInRange = [];
+              InBetweenDates = [];
+              // Iterate through the dates and add them to the array
+              for (var currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+                // Format the date as "YYYY-MM-DD" and push to the array
+                var formattedDate = currentDate.toISOString().split('T')[0];
+                datesInRange.push(formattedDate);
               }
-            });
 
+              // console.log(datesInRange);
+              InBetweenDates = datesInRange.slice(1, -1);
+            } else if (result.isDenied) {
+              NewWeb.lists.getByTitle("LeaveRequest").items.getById(itemidno).update({
+                Status: "Cancelled"
+              }).then(() => {
+                NewWeb.lists.getByTitle("Leave Cancellation History").items.add({
+                  LeaveType: items.LeaveType,
+                  Day: items.Day,
+                  Time: items.Time,
+                  StartDate: items.StartDate,
+                  EndDate: items.EndDate,
+                  Reason: items.Reason,
+                  Requester: items.Requester,
+                  AppliedDate: items.AppliedDate,
+                  Days: items.Days,
+                  EmployeeEmail: items.EmployeeEmail,
+                  RequestSessionMasterID: items.RequestSessionMasterID,
+                  Approver: items.Approver,
+                  ApproverEmail: items.ApproverEmail,
+                  CompOff: items.CompOff,
+                  ManagerComments: items.ManagerComments,
+                  Status: "Cancelled",
+                  CancelledBy: this.state.CurrentUserName
 
-
-            //this.Change_leave_Date_or_Cancel_Leave(totalDays, LeaveType)
-            // Parse the start and end dates
-            updateDateIdNo = itemidno;
-            TotalDaysLeaveApplied = totalDays;
-            LeaveTypee = LeaveType;
-            LeaveStatuss = LeaveStatus;
-            SpecificDate = items
-            console.log(SpecificDate)
-            var startDate = new Date(StartDate);
-            var endDate = new Date(EndDate);
-            $('#cancelation_date').attr('min', StartDate);
-            $('#cancelation_date').attr('max', EndDate);
-
-            // Array to store the dates in between
-            datesInRange = [];
-            InBetweenDates = [];
-            // Iterate through the dates and add them to the array
-            for (var currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
-              // Format the date as "YYYY-MM-DD" and push to the array
-              var formattedDate = currentDate.toISOString().split('T')[0];
-              datesInRange.push(formattedDate);
-            }
-
-            // console.log(datesInRange);
-            InBetweenDates = datesInRange.slice(1, -1);
-          } else if (result.isDenied) {
-            NewWeb.lists.getByTitle("LeaveRequest").items.getById(itemidno).update({
-              Status: "Cancelled"
-            }).then(() => {
-              NewWeb.lists.getByTitle("Leave Cancellation History").items.add({
-                LeaveType: items.LeaveType,
-                Day: items.Day,
-                Time: items.Time,
-                StartDate: items.StartDate,
-                EndDate: items.EndDate,
-                Reason: items.Reason,
-                Requester: items.Requester,
-                AppliedDate: items.AppliedDate,
-                Days: items.Days,
-                EmployeeEmail: items.EmployeeEmail,
-                RequestSessionMasterID: items.RequestSessionMasterID,
-                Approver: items.Approver,
-                ApproverEmail: items.ApproverEmail,
-                CompOff: items.CompOff,
-                ManagerComments: items.ManagerComments,
-                Status: "Cancelled",
-                CancelledBy: this.state.CurrentUserName
-
+                })
               })
-            })
-            this.Get_Blance_Count(totalDays, LeaveType, LeaveStatus)
-          }
-        });
+              this.Get_Blance_Count(totalDays, LeaveType, LeaveStatus)
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: "warning",
+            showDenyButton: true,
+            showCancelButton: true,
+            showConfirmButton: false,
+            denyButtonText: `Cancel this leave`,
+            cancelButtonText: 'Close',
+            customClass: {
+              container: 'cancel-pending-popup',
+            },
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              // Swal.fire("Saved!", "", "success");
+            } else if (result.isDenied) {
+              NewWeb.lists.getByTitle("LeaveRequest").items.getById(itemidno).update({
+                Status: "Cancelled"
+              }).then(() => {
+                NewWeb.lists.getByTitle("Leave Cancellation History").items.add({
+                  LeaveType: items.LeaveType,
+                  Day: items.Day,
+                  Time: items.Time,
+                  StartDate: items.StartDate,
+                  EndDate: items.EndDate,
+                  Reason: items.Reason,
+                  Requester: items.Requester,
+                  AppliedDate: items.AppliedDate,
+                  Days: items.Days,
+                  EmployeeEmail: items.EmployeeEmail,
+                  RequestSessionMasterID: items.RequestSessionMasterID,
+                  Approver: items.Approver,
+                  ApproverEmail: items.ApproverEmail,
+                  CompOff: items.CompOff,
+                  ManagerComments: items.ManagerComments,
+                  Status: "Cancelled",
+                  CancelledBy: this.state.CurrentUserName
 
+                })
+              })
+              this.Get_Blance_Count(totalDays, LeaveType, LeaveStatus)
+            }
+          });
+        }
 
         // swal({
         //   title: ``,

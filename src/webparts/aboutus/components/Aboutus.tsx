@@ -107,14 +107,14 @@ export default class Aboutus extends React.Component<IAboutusProps, IAboutusStat
             </div>
           </div>
         </header>
-        {!listSelected &&
+        {/* {!listSelected &&
           <Placeholder
             iconName='MusicInCollectionFill'
             iconText='Configure your web part'
             description='Select a list with a Title field and Content field to have its items rendered in a collapsible accordion format'
             buttonLabel='Choose a List'
             onConfigure={this.props.onConfigure} />
-        }
+        } */}
         {listSelected &&
           <div>
             <WebPartTitle displayMode={this.props.displayMode}
