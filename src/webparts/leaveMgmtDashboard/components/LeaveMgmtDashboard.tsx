@@ -811,7 +811,9 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
               ApproverEmail: items.ApproverEmail,
               CompOff: items.CompOff,
               ManagerComments: items.ManagerComments,
-              Status: "Cancelled"
+              Status: "Cancelled",
+              CancelledBy: this.state.CurrentUserName
+
             })
             this.Get_Blance_Count(totalDays, LeaveType, LeaveStatus)
 
@@ -1103,7 +1105,9 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
                 ApproverEmail: items.ApproverEmail,
                 CompOff: items.CompOff,
                 ManagerComments: items.ManagerComments,
-                Status: "Cancelled"
+                Status: "Cancelled",
+                CancelledBy: this.state.CurrentUserName
+
               })
             })
             this.Get_Blance_Count(totalDays, LeaveType, LeaveStatus)
@@ -1258,7 +1262,9 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
           ApproverEmail: SpecificDate.ApproverEmail,
           CompOff: SpecificDate.CompOff,
           ManagerComments: SpecificDate.ManagerComments,
-          Status: "Cancelled"
+          Status: "Cancelled",
+          CancelledBy: this.state.CurrentUserName
+
         })
         var ReduceLeaveDays = TotalDaysLeaveApplied - LeaveDates.length
         this.Get_Blance_Count(ReduceLeaveDays, LeaveTypee, LeaveStatuss)
@@ -1581,9 +1587,9 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
                           <th>Employee Name</th>
                         }
                         <th>Requested On</th>
-                        <th>LeaveType</th>
-                        <th>StartDate</th>
-                        <th>EndDate</th>
+                        <th>Leave Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
                         <th className="reason-td">Reason</th>
                         <th>Day</th>
                         <th>Compensation Date</th>

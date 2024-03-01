@@ -521,7 +521,8 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
     } as any).then((willdelete) => {
       if (willdelete) {
         NewWeb.lists.getByTitle("EmployeePermission").items.getById(itemidno).update({
-          Status: "Cancelled"
+          Status: "Cancelled",
+          CancelledBy: this.state.CurrentUserName
         }).then(() => {
           swal({
             text: "Permission cancelled successfully!",
@@ -613,10 +614,10 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
         </header>
         <nav>
           <ul>
-            <li className="active"><a href="https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView"> Home  </a> </li>
+            <li><a href="https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView"> Home  </a> </li>
             <li> <a href="https://tmxin.sharepoint.com/sites/ER/SitePages/Aboutus.aspx?env=WebView"> About   </a> </li>
             <li> <a href="https://tmxin.sharepoint.com/sites/ER/SitePages/Holiday.aspx?env=WebView"> Holidays  </a> </li>
-            <li> <a href="https://tmxin.sharepoint.com/sites/ER/SitePages/PermissionDashboard.aspx?env=WebView"> Permission  </a> </li>
+            <li className="active"> <a href="https://tmxin.sharepoint.com/sites/ER/SitePages/PermissionDashboard.aspx?env=WebView"> Permission  </a> </li>
           </ul>
         </nav>
         <div className="container">
