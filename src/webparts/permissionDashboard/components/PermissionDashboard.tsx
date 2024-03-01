@@ -576,7 +576,7 @@ export default class PermissionDashboard extends React.Component<IPermissionDash
           <td>
             {(item.State !== "Cancel" || item.State !== "Cancelled") &&
               <>
-                {(item.Status != "Cancelled" && item.Status != "Rejected" && moment(item.timefromwhen, "DD-MM-YYYY hh:mm A").isSameOrAfter(moment(), 'day')) &&
+                {(handler.state.Empemail == item.EmployeeEmail && item.Status != "Cancelled" && item.Status != "Rejected" && moment(item.timefromwhen, "DD-MM-YYYY hh:mm A").isSameOrAfter(moment(), 'day')) &&
 
 
                   <p onClick={() => handler.Cancel_Request_(item.Id)}><img src="https://tmxin.sharepoint.com/sites/ER/SiteAssets/LeavePortal/img/cancel.svg" alt="image" /></p>
