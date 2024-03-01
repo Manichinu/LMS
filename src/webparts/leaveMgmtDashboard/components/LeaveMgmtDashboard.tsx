@@ -1115,48 +1115,31 @@ export default class LeaveMgmtDashboard extends React.Component<ILeaveMgmtDashbo
             }
           });
         } else {
-          Swal.fire({
-            icon: "warning",
-            showDenyButton: true,
-            showCancelButton: true,
-            showConfirmButton: false,
-            denyButtonText: `Cancel this leave`,
-            cancelButtonText: 'Close',
-            customClass: {
-              container: 'cancel-pending-popup',
-            },
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              // Swal.fire("Saved!", "", "success");
-            } else if (result.isDenied) {
-              NewWeb.lists.getByTitle("LeaveRequest").items.getById(itemidno).update({
-                Status: "Cancelled"
-              }).then(() => {
-                NewWeb.lists.getByTitle("Leave Cancellation History").items.add({
-                  LeaveType: items.LeaveType,
-                  Day: items.Day,
-                  Time: items.Time,
-                  StartDate: items.StartDate,
-                  EndDate: items.EndDate,
-                  Reason: items.Reason,
-                  Requester: items.Requester,
-                  AppliedDate: items.AppliedDate,
-                  Days: items.Days,
-                  EmployeeEmail: items.EmployeeEmail,
-                  RequestSessionMasterID: items.RequestSessionMasterID,
-                  Approver: items.Approver,
-                  ApproverEmail: items.ApproverEmail,
-                  CompOff: items.CompOff,
-                  ManagerComments: items.ManagerComments,
-                  Status: "Cancelled",
-                  CancelledBy: this.state.CurrentUserName
+          NewWeb.lists.getByTitle("LeaveRequest").items.getById(itemidno).update({
+            Status: "Cancelled"
+          }).then(() => {
+            NewWeb.lists.getByTitle("Leave Cancellation History").items.add({
+              LeaveType: items.LeaveType,
+              Day: items.Day,
+              Time: items.Time,
+              StartDate: items.StartDate,
+              EndDate: items.EndDate,
+              Reason: items.Reason,
+              Requester: items.Requester,
+              AppliedDate: items.AppliedDate,
+              Days: items.Days,
+              EmployeeEmail: items.EmployeeEmail,
+              RequestSessionMasterID: items.RequestSessionMasterID,
+              Approver: items.Approver,
+              ApproverEmail: items.ApproverEmail,
+              CompOff: items.CompOff,
+              ManagerComments: items.ManagerComments,
+              Status: "Cancelled",
+              CancelledBy: this.state.CurrentUserName
 
-                })
-              })
-              this.Get_Blance_Count(totalDays, LeaveType, LeaveStatus)
-            }
-          });
+            })
+          })
+          this.Get_Blance_Count(totalDays, LeaveType, LeaveStatus)
         }
 
         // swal({

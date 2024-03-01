@@ -435,9 +435,9 @@ export default class PermissionRequest extends React.Component<IPermissionReques
               icon: "success",
 
             }).then(() => {
-              setTimeout(() => {
-                location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/PermissionDashboard.aspx?env=WebView";
-              }, 3000);
+              // setTimeout(() => {
+              location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/PermissionDashboard.aspx?env=WebView";
+              // }, 3000);
 
 
             });

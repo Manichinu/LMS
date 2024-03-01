@@ -1013,9 +1013,9 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
                           text: "Leave applied successfully!",
                           icon: "success",
                         }).then(() => {
-                          setTimeout(() => {
-                            location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView";
-                          }, 3000);
+                          // setTimeout(() => {
+                          location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView";
+                          // }, 3000);
 
                         });
                       });
@@ -1119,9 +1119,9 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
                             text: "Leave applied successfully!",
                             icon: "success",
                           }).then(() => {
-                            setTimeout(() => {
-                              location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView";
-                            }, 3000);
+                            // setTimeout(() => {
+                            location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView";
+                            // }, 3000);
 
                           });
                         });
@@ -1210,9 +1210,9 @@ export default class LeaveMgmt extends React.Component<ILeaveMgmtProps, ILeaveMg
                             text: "Leave applied successfully!",
                             icon: "success",
                           }).then(() => {
-                            setTimeout(() => {
-                              location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView";
-                            }, 3000);
+                            // setTimeout(() => {
+                            location.href = "https://tmxin.sharepoint.com/sites/ER/SitePages/Dashboard.aspx?env=WebView";
+                            // }, 3000);
 
                           });
                         });
