@@ -398,6 +398,7 @@ export default class PermissionRequest extends React.Component<IPermissionReques
 
     var startdate = moment(selectedtime, "YYYY-MM-DDTHH:mm").format('YYYY-MM-DD');
     var starttime = moment(selectedtime, "YYYY-MM-DDTHH:mm").format('DD-MM-YYYY hh:mm A');
+    var EndTime = moment(enddate, "DD-MM-YYYY hh:mm A").format('DD-MM-YYYY hh:mm A');
 
     var now = new Date();
     var day = ("0" + now.getDate()).slice(-2);
@@ -416,7 +417,7 @@ export default class PermissionRequest extends React.Component<IPermissionReques
         NewWeb.lists.getByTitle("EmployeePermission").items.add({
           PermissionHour: permissionhour,
           timefromwhen: starttime,
-          TimeUpto: enddate,
+          TimeUpto: EndTime,
           Reason: Reason,
           PermissionOn: today,
           Requester: this.state.CurrentUserName,
